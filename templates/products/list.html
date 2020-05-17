@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="card-columns m-3">
+        {% for product in products %}
+
+            <div class="card">
+                <img class="card-img-top small" src="{{ product.image.url }}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h5>
+                    <p class="card-text">{{ product.description }}</p>
+                    <h4 class="card-title">{{ product.price }}</h4>
+                </div>
+                <a class="btn btn-primary m-2" href="/cart/add-to-cart/{{ product.id }}">Add to Cart</a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

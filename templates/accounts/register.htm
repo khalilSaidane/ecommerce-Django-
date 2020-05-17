@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% load fontawesome_5 %}
+
+{% block content %}
+    {% fontawesome_5_static %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                <div class="card card-signin my-5">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Register</h5>
+                        <form action="{% url 'accounts:register' %}" method="post" class="form" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {% bootstrap_form form %}
+                            {% buttons %}
+                                <button type="submit" class="btn btn-primary">
+                                    Submit
+                                </button>
+                                <hr class="my-4">
+                                <button class="btn btn-outline-danger"
+                                        type="submit">  {% fa5_icon 'google' color='red' %} Sign in with Google
+                                </button>
+                                <button class="btn btn-outline-primary"
+                                        type="submit">  {% fa5_icon 'facebook' color='#3b5998' %} Sign in with
+                                    Facebook
+                                </button>
+                            {% endbuttons %}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

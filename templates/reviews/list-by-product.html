@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load review_extras %}
+{% block content %}
+    <div class="m-3">
+        {% if 'products' not in request.path %}
+            <a href="{% url 'products:detail' product.id %}"> {{ product.name }}</a>
+        {% endif %}
+        <h5 class="">
+            {% for i in rate|times %}
+                <i class="fa fa-star" style="color: gold" aria-hidden="true"></i>
+            {% endfor %}
+            {{ rate }}
+            {% if 'products'  in request.path %}
+                <a class="m-3" href="{% url 'reviews:list-by-product' product.id %}">{{ product_review_count }}
+                    Ratings</a>
+                <a href="{% url 'reviews:create' product.id %}"><i class="fas fa-plus-circle"></i></a>
+            {% endif %}
+        </h5>
+        {% for review in reviews %}
+            <div class="card small m-2" style="width: 40rem;">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        {{ review.user }}
+                        {% for i in review.rate|times %}
+                            <i class="fa fa-star" style="color: gold" aria-hidden="true"></i>
+                        {% endfor %}
+                        {{ review.rate }}
+                    </h5>
+                    <p class="card-text"><small class="text-muted">{{ review.timestamp }}</small></p>
+                    <p class="card-text">{{ review.content }}</p>
+                    <a href="{% url 'reviews:detail' review.id %}" class="btn btn-secondary">Comment</a>
+                    {% include 'reviews/snippets/vote.html' %}
+                <a href="#" id="show-comments" class="ml-3">{{ review.commentreview_set.count }} comments</a>
+                    <div class="comments-div">
+                        {% for comment in review.commentreview_set.all %}
+                            {% include 'comments/detail.html' %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('.comments-div').hide();
+            $('#show-comments').click(function (e) {
+                $('.comments-div').toggle();
+            })
+        });
+    </script>
+{% endblock %}
