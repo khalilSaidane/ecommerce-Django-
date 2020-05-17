@@ -7,17 +7,17 @@
                 <p class="card-text"><small class="text-muted">{{ comment.timestamp }}</small></p>
                 <p class="card-text">{{ comment.content }} <a href="{% url 'comments:detail' comment.id %}"
                                                               class="ml-3">Reply</a></p>
-                <a href="#" id="show-childs-comments" class="ml-3">{{ comment.childs.count }} Replys</a>
+                <label style="color:cornflowerblue;" id="show-childs-comments" class="ml-3">{{ comment.childs.count }} Replys</label>
                 <div class="comment-childs-div">
-                    {% for child in comment.childs.all %}
-                        <div class="card small m-2" style="width: 30rem;">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ child.user }}</h5>
-                                <p class="card-text"><small class="text-muted">{{ child.timestamp }}</small></p>
-                                <p class="card-text">{{ child.content }}</p>
-                            </div>
+                {% for child in comment.childs.all %}
+                    <div class="card small m-2" style="width: 30rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ child.user }}</h5>
+                            <p class="card-text"><small class="text-muted">{{ child.timestamp }}</small></p>
+                            <p class="card-text">{{ child.content }}</p>
                         </div>
-                    {% endfor %}
+                    </div>
+                {% endfor %}
                 </div>
                 {% if 'comments/detail' in request.path %}
                     {% include 'comments/create-child.html' %}
@@ -29,6 +29,7 @@
         $(document).ready(function () {
             $('.comment-childs-div').hide();
             $('#show-childs-comments').click(function (e) {
+                console.log('rrfr')
                 $('.comment-childs-div').toggle();
             })
         });

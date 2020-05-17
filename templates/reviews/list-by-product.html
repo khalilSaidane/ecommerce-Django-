@@ -30,7 +30,8 @@
                     <p class="card-text">{{ review.content }}</p>
                     <a href="{% url 'reviews:detail' review.id %}" class="btn btn-secondary">Comment</a>
                     {% include 'reviews/snippets/vote.html' %}
-                <a href="#" id="show-comments" class="ml-3">{{ review.commentreview_set.count }} comments</a>
+                    <label style="color: cornflowerblue" id="show-comments"
+                           class="ml-3">{{ review.commentreview_set.count }} comments</label>
                     <div class="comments-div">
                         {% for comment in review.commentreview_set.all %}
                             {% include 'comments/detail.html' %}
