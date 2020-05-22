@@ -9,7 +9,7 @@ class CommentReview(models.Model):
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
     content = models.CharField(max_length=250)
     timestamp = models.DateTimeField(auto_now_add=True)
-    childs = models.ManyToManyField('self', related_name='childs_comments', null=True, blank=True)
+    childs = models.ManyToManyField('self', related_name='childs_comments', blank=True)
     is_child = models.BooleanField(default=False)
 
     def __str__(self):

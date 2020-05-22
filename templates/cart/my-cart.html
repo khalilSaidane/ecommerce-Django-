@@ -6,7 +6,6 @@
         <tr>
             <th scope="col">Name</th>
             <th scope="col">Price</th>
-            <th scope="col">Quantity</th>
             <th scope="col">Timestamp</th>
             <th scope="col">Action</th>
         </tr>
@@ -16,7 +15,6 @@
             <tr>
                 <td>{{ item.product.name }}</td>
                 <td>{{ item.product.price }}</td>
-                <td><input type="number" value="{{ item.quantity }}"></td>
                 <td>{{ item.timestamp }}</td>
                 <td><a class="btn btn-danger" href="/cart/remove-from-cart/{{ item.product.id }}">Delete</a></td>
             </tr>

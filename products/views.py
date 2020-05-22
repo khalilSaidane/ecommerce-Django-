@@ -1,10 +1,13 @@
 import statistics
+
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from .forms import CreateProductForm
 from .models import Product
 
 
+@login_required(login_url='/accounts/login')
 def create_product_view(request, *args, **kwargs):
     form = CreateProductForm(request.POST or None, request.FILES or None)
     print(request)

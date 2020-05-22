@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
 from comments.models import CommentReview
@@ -5,6 +6,7 @@ from reviews.models import Review
 from .forms import CommentForm
 
 
+@login_required(login_url='/accounts/login')
 def create_comment_view(request, review_id, *args, **kwargs):
     form = CommentForm(request.POST or None)
     review = Review.objects.get(id=review_id)
@@ -15,7 +17,7 @@ def create_comment_view(request, review_id, *args, **kwargs):
         comment.save()
     return render(request, 'comments/create.html', {'form': form})
 
-
+@login_required(login_url='/accounts/login')
 def create_child_comment_view(request, review_id, comment_id, *args, **kwargs):
     child_form = CommentForm(request.POST or None)
     review = Review.objects.get(id=review_id)

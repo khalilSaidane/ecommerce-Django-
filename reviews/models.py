@@ -23,7 +23,6 @@ class ReviewManager(models.Manager):
 
     def toggle_down_vote(self, user, review_id):
         review = Review.objects.get(id=review_id)
-        print(review)
         if user in review.down_votes.all():
             review.down_votes.remove(user)
         else:

@@ -1,14 +1,14 @@
 {% if request.user in review.up_votes.all %}
-    <a class="ml-4" href="/reviews/up-vote/{{ review.id }}"><i class="fas fa-arrow-up"></i></a>
+    <a class="ml-2" href="/reviews/up-vote/{{ review.id }}"><i class="fas fa-arrow-up"></i></a>
     {{ review.up_votes.count }}
 {% else %}
-    <a class="ml-4" href="/reviews/up-vote/{{ review.id }}"><i style="color: black" class="fas fa-arrow-up"></i></a>
+    <a class="ml-2" href="/reviews/up-vote/{{ review.id }}"><i style="color: black" class="fas fa-arrow-up"></i></a>
     {{ review.up_votes.count }}
 {% endif %}
 {% if request.user in review.down_votes.all %}
-    <a class="ml-4" href="/reviews/down-vote/{{ review.id }}"><i class="fas fa-arrow-down"></i></a>
+    <a class="ml-2 " href="/reviews/down-vote/{{ review.id }}"><i class="fas fa-arrow-down"></i></a>
     {{ review.down_votes.count }}
 {% else %}
-    <a class="ml-4" href="/reviews/down-vote/{{ review.id }}"><i style="color: black" class="fas fa-arrow-down"></i></a>
+    <a class="ml-2 " href="/reviews/down-vote/{{ review.id }}"><i style="color: black" class="fas fa-arrow-down"></i></a>
     {{ review.down_votes.count }}
 {% endif %}

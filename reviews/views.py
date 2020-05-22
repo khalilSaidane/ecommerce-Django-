@@ -1,5 +1,6 @@
 import statistics
 
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from comments.forms import CommentForm
@@ -8,7 +9,7 @@ from products.models import Product
 from reviews.models import Review
 from .forms import ReviewCreateForm
 
-
+@login_required(login_url='/accounts/login')
 def create_review_view(request, product_id, *args, **kwargs):
     form = ReviewCreateForm(request.POST or None)
     product = Product.objects.get(id=product_id)
@@ -17,9 +18,10 @@ def create_review_view(request, product_id, *args, **kwargs):
         review.user = request.user
         review.product = product
         review.save()
+        return redirect('reviews:list-by-product', product.id)
     return render(request, 'reviews/create.html', context={'form': form})
 
-
+@login_required(login_url='/accounts/login')
 def delete_review_view(request, review_id, *args, **kwargs):
     review = Review.objects.get(id=review_id)
     review.delete()
@@ -43,7 +45,7 @@ def list_reviews_by_product(request, product_id, *args, **kwargs):
     }
     return render(request, 'reviews/list-by-product.html', context)
 
-
+@login_required(login_url='/accounts/login')
 def up_vote_review_view(request, review_id, *args, **kwargs):
     review = Review.objects.toggle_up_vote(user=request.user, review_id=review_id)
     if "products" in request.META['HTTP_REFERER']:
@@ -52,7 +54,7 @@ def up_vote_review_view(request, review_id, *args, **kwargs):
         return redirect('reviews:detail', review.id)
     return redirect('reviews:list-by-product', review.product_id)
 
-
+@login_required(login_url='/accounts/login')
 def down_vote_review_view(request, review_id, *args, **kwargs):
     review = Review.objects.toggle_down_vote(user=request.user, review_id=review_id)
     print(review)

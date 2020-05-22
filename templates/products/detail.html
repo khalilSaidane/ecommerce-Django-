@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="card m-3">
+    <div class=" m-3">
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -11,7 +11,7 @@
                     <div class="card-body">
                         <h2 class="card-title">{{ product.name }}</h2>
                         <p class="card-text">{{ product.description }}</p>
-                        <h4 class="card-title">{{ product.price }}</h4>
+                        <h4 class="card-title">{{ product.price }} $</h4>
                     </div>
                     {% include 'reviews/list-by-product.html' %}
                 </div>
@@ -19,3 +19,9 @@
         </div>
     </div>
 {% endblock %}
+
+{% for post in posts %}
+    {% for comment in post.comment_set %}
+        {{ comment.comment_user }}
+    {% endfor %}
+{% endfor %}
