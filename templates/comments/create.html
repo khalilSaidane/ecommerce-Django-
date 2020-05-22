@@ -1,4 +1,9 @@
-{% extends 'base.html' %}
-{% block content %}
+{% load bootstrap4 %}
+{% load fontawesome_5 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% fontawesome_5_static %}
+{% bootstrap_javascript jquery='full' %}{% block content %}
 {% include 'form.html' %}
 {% endblock %}

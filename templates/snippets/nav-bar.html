@@ -16,20 +16,21 @@
             <li class="nav-item {% if request.path == '/products/create/' %}active{% endif %}">
                 <a class="nav-link" href="{% url 'products:create' %}">New Product</a>
             </li>
-        </ul>
         {% if request.user.is_authenticated %}
-            <ul class="nav navbar-nav navbar-right mr-5">
-                <li class="dropdown mr-5">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">{{ request.user }} <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">Logout</a></li>
-                        <li><a class="dropdown-item" href="{% url 'accounts:change_password' %}">change password</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    {{request.user}}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{% url 'accounts:logout' %}">Logout</a>
+                    <a class="dropdown-item" href="{% url 'accounts:change_password' %}">Change Password</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                 {% include 'snippets/notifications.html' %}
+            </li>
         {% endif %}
+        </ul>
     </div>
 </nav>

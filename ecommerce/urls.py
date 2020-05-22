@@ -25,4 +25,6 @@ urlpatterns = [
     path('cart/', include('cart.urls', namespace='cart')),
     path('reviews/', include('reviews.urls', namespace='reviews')),
     path('comments/', include('comments.urls', namespace='comments')),
+    path('api/accounts/', include('accounts.api.urls', namespace='accounts-api')),
+    path('api/notifications/', include('notifications.api.urls', namespace='notifications-api')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

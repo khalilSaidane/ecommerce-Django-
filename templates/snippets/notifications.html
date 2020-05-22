@@ -1,0 +1,36 @@
+<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+   aria-haspopup="true" aria-expanded="false"
+   style="color: {% if new_notifications_count %}goldenrod{% endif %}">
+    Notifications {{ new_notifications_count }}
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+    {% for notif in notifications %}
+        <a read-url="{{ notif.get_read_notification_url }}" href="{{ notif.url }}" class="notification"
+           style="color: {% if notif.is_read %}darkgray{% else %}cornflowerblue{% endif %}">
+            <b>{{ notif.actor }}</b> {{ notif.verb }} {{ notif.content_object }},
+            <small>{{ notif.timestamp | timesince }} ago </small>
+        </a>
+    {% empty %}
+        <li>No new notifications</li>
+    {% endfor %}
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.notification').click(function (e) {
+            var this_ = $(this);
+            var readNotificationUrl = this_.attr('read-url');
+            $.ajax({
+                url: readNotificationUrl,
+                method: 'PUT',
+                data: {},
+                success: function (data) {
+                    console.log('success')
+                }, error: function (error) {
+                    console.log('error');
+                    console.log(error)
+                }
+            });
+        });
+    });
+</script>

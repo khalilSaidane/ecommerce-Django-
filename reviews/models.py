@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.urls import reverse
 
 from products.models import Product
 
@@ -41,6 +42,12 @@ class Review(models.Model):
     up_votes = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='reviews_up_votes')
     down_votes = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='reviews_down_votes')
     objects = ReviewManager()  # this will add the manager to objects
+
+    def get_absolute_url(self):
+        return reverse('reviews:detail', kwargs={'review_id': self.id})
+
+    def __str__(self):
+        return 'on '+str(self.product.name)+' with rate '+str(self.rate)
 
     class Meta:
         ordering = ['-timestamp']
