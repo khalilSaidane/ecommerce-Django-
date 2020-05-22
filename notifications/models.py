@@ -82,9 +82,18 @@ def notify(verb, redirect_to_actor_profile=False):
                 url = None
             notification = Notification(actor=actor, target=target, content_object=instance, verb=verb, url=url)
             Notification.objects.save_notification_or_update_similar(notification)
+
     return notify_func
 
 
+# Here you can add register notification on any m2m field you want
+# By calling notify with the verb that you want (this will return a method)
+# pass the methods that you created with notify to m2m_changed.connect and the sender must be the m2m field with .through
+# this would work all the time as long as you provide get_absolute_url on the target
+# for example
 notify_on_up_vote = notify(verb='up voted your review')
-
 m2m_changed.connect(notify_on_up_vote, sender=Review.up_votes.through)
+
+notify_on_down_vote = notify(verb='down voted your review')
+m2m_changed.connect(notify_on_down_vote, sender=Review.down_votes.through)
+
