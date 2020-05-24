@@ -11,7 +11,7 @@
             <small>{{ notif.timestamp | timesince }} ago </small>
         </a>
     {% empty %}
-        <li>No new notifications</li>
+        <a  class="nav-item">No new notifications</a>
     {% endfor %}
 </div>
 
